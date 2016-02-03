@@ -1,1 +1,1 @@
-docker run -i -t --privilleged  droyd-stf
+docker run -i -t --privileged  droyd-stf

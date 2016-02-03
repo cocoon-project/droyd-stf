@@ -1,5 +1,7 @@
 FROM openstf/stf
 
+USER root
+
 
 #
 #   install rethinkdb
