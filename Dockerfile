@@ -114,5 +114,19 @@ USER stf
 
 
 
+#
+#  install honcho
+#
+RUN apt-get update \
+    && apt-get install -y python-pip
+
+RUN pip install honcho
+
+
+RUN cat >Procfile <<EOM
+rethinkdb: rethinkdb --bind all
+#redis: redis-server
+stf: stf local
+EOM
 
 
