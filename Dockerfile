@@ -4,24 +4,23 @@ USER root
 
 
 #
-#   install rethinkdb
+#  install android tools
+#
+RUN sudo apt-get update && sudo apt-get install -y android-tools-adb android-tools-fastboot
+
+
+
+#
+#   install rethinkdb  ( ref: https://www.rethinkdb.com/docs/install/ubuntu/)
 #
 
-# Add the RethinkDB repository and public key
-# "RethinkDB Packaging <packaging@rethinkdb.com>" http://download.rethinkdb.com/apt/pubkey.gpg
-#RUN sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 1614552E5765227AEC39EFCFA7E00EF33A8F2399
-RUN sudo echo "deb http://download.rethinkdb.com/apt trusty main" > /etc/apt/sources.list.d/rethinkdb.list
-
-ENV RETHINKDB_PACKAGE_VERSION 1.14.1-0ubuntu1~trusty
-
-RUN sudo apt-get update \
-	&& sudo apt-get install -y rethinkdb=$RETHINKDB_PACKAGE_VERSION \
-	&& sudo rm -rf /var/lib/apt/lists/*
+RUN . /etc/lsb-release && \
+    echo "deb http://download.rethinkdb.com/apt $DISTRIB_CODENAME main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list &&\
+    wget -qO- https://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add - && \
+    sudo apt-get update && sudo apt-get install -y rethinkdb
 
 VOLUME ["/data"]
-
 WORKDIR /data
-
 CMD ["rethinkdb", "--bind", "all"]
 
 #   process cluster webui
@@ -32,18 +31,41 @@ EXPOSE 28015 29015 8080
 #
 # install redis
 #
-RUN sudo add-apt-repository ppa:chris-lea/redis-server && sudo apt-get update  && sudo apt-get install redis-server
-
+#RUN sudo apt-get install -y redis-server
 
 #
 #  install honcho
 #
 
-RUN apt-get update && apt-get install -y python-pip && pip install honcho
+RUN sudo apt-get install -y python-pip && \
+    pip install honcho
 
 
-RUN cat >Procfile <<EOM
-rethinkdb: rethinkdb --bind all
-redis: redis-server
-stf: stf local
-EOM
+#
+# install droydrunner
+#
+RUN git clone https://cocoon_bitbucket@bitbucket.org/cocoon_bitbucket/droyd.git /tmp/
+RUN cd /tmp && \
+    pip install -r requirements_server.txt && \
+    python setup.py install && \
+    cp droydserver/droydserve.py /usr/local/bin/droydserve && \
+    chmod +x /usr/local/bin/droydserve 
+
+# add demo
+#ADD droydserver/demo /tests/demo
+
+
+
+EXPOSE 5000
+#WORKDIR /tests
+
+
+
+
+
+
+
+
+#USER stf
+
+COPY files/ /data
