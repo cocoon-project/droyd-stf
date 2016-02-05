@@ -1,4 +1,4 @@
-rethinkdb: rethinkdb --bind all
+rethinkdb: rethinkdb --no-update-check --bind all 
 #redis: redis-server
 stf: stf local 
 droydserver: droydserve
