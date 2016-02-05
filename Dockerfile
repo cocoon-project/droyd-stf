@@ -4,10 +4,6 @@ USER root
 
 
 
-
-
-
-
 #
 #  install android tools
 #
@@ -61,7 +57,7 @@ EXPOSE 5000
 
 
 
-USER stf
+#USER stf
 VOLUME ["/data"]
 WORKDIR /data
 #CMD ["rethinkdb", "--bind", "all"]
