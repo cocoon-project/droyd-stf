@@ -3,6 +3,11 @@ FROM openstf/stf
 USER root
 
 
+
+
+
+
+
 #
 #  install android tools
 #
@@ -36,7 +41,6 @@ EXPOSE 28015 29015 8080
 #
 #  install honcho
 #
-
 RUN sudo apt-get install -y python-pip && \
     pip install honcho
 
@@ -53,8 +57,6 @@ RUN cd /tmp && \
 
 # add demo
 #ADD droydserver/demo /tests/demo
-
-
 
 EXPOSE 5000
 #WORKDIR /tests
