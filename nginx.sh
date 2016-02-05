@@ -1,0 +1,1 @@
+docker run --name nginx -p 80:80 -v /Users/cocoon/Documents/projects/droyd-stf/site/html:/usr/share/nginx/html -v /Users/cocoon/Documents/projects/droyd-stf/site/default.conf:/etc/nginx/conf.d/default.conf -d nginx
