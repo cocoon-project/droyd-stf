@@ -24,10 +24,6 @@ RUN . /etc/lsb-release && \
     wget -qO- https://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add - && \
     sudo apt-get update && sudo apt-get install -y rethinkdb
 
-VOLUME ["/data"]
-WORKDIR /data
-CMD ["rethinkdb", "--bind", "all"]
-
 #   process cluster webui
 EXPOSE 28015 29015 8080
 
@@ -65,9 +61,17 @@ EXPOSE 5000
 
 
 
+USER stf
+VOLUME ["/data"]
+WORKDIR /data
+#CMD ["rethinkdb", "--bind", "all"]
 
-
-
-#USER stf
 
 COPY files/ /data
+
+
+
+
+CMD honcho start
+
+
