@@ -68,6 +68,6 @@ COPY files/ /data
 
 
 
-CMD honcho start
+CMD ["honcho", "start"]
 
 
