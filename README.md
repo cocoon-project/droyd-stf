@@ -46,8 +46,8 @@ stf
 ---
 in a brower open http://${NGINX_HOST}
 
-login: stf
-password: stf
+* login: stf
+* password: stf@openstf.io
 
 
 check you can manage the devices with stf ui
