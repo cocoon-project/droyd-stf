@@ -1,0 +1,33 @@
+stf:
+  image: cocoon/droyd-stf
+  ports:
+    - "7100:7100"
+    - "7110:7110"
+    - "7400:7400"
+    - "7401:7401"
+    - "7402:7402"
+    - "7403:7403"
+    - "7404:7404"
+    - "7405:7405"
+    - "7406:7406"
+    - "7407:7407"
+    - "5000:5000"
+    - "8080:8080" 
+  privileged: true
+  environment:
+    - NGINX_HOST=192.168.99.100
+    - PYTHONIOENCODING="utf-8"
+
+  command: '/bin/bash -c "envsubst < /data/templates/Procfile > /data/Procfile; honcho start"'
+
+nginx:
+  image: cocoon/openresty
+  links:
+   - stf
+  volumes: []
+    #- ./nginx/html:/usr/share/nginx/html
+    #- ./nginx/nginx.conf:/opt/openresty/nginx/conf
+    #- ./nginx/lualib:/opt/openresty/nginx/lualib
+  ports:
+    - "8080:80"
+  #command: nginx -g 'daemon off;'
