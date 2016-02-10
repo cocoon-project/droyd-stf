@@ -3,6 +3,13 @@ FROM openstf/stf
 USER root
 
 
+#
+# install dependencies  (envsubst)
+#
+RUN sudo apt-get update && sudo apt-get install -y gettext
+
+
+
 
 #
 #  install android tools
