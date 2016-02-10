@@ -17,7 +17,7 @@ stf:
   environment:
     - PYTHONIOENCODING="utf-8"
     - NGINX_HOST=192.168.99.100
-  command: /bin/bash -c "envsubst < /data/templates/Procfile > /data/Procfile" && honcho start
+  command: '/bin/bash -c "envsubst < /data/templates/Procfile > /data/Procfile; honcho start"'
 
 nginx:
   image: nginx
@@ -25,15 +25,15 @@ nginx:
    - stf
   volumes:
     - ./site/html:/usr/share/nginx/html
-    #- ./site/nginx/nginx.conf:/etc/nginx/nginx.conf
-    - ./site/nginx/nginx.conf.tmpl:/etc/nginx/nginx.conf.tmpl
+    - ./site/nginx/nginx.conf:/etc/nginx/nginx.conf
+    #- ./site/nginx/nginx.conf.tmpl:/etc/nginx/nginx.conf.tmpl
 
   ports:
     - "80:80"
   environment:
     - NGINX_HOST=192.168.99.100
     - NGINX_PORT=80
-  command: /bin/bash -c "envsubst < /etc/nginx/nginx.conf.tmpl > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
+  #command: /bin/bash -c "envsubst < /etc/nginx/nginx.conf.tmpl > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
 
 
 
