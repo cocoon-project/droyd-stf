@@ -32,6 +32,8 @@ connect your android devices
     docker-compose up
 
 
+when run for the first time, docker will load 2 images from dockerhub, be patient.
+
 watch your devices to answer the authorization request for this machine
 
 
@@ -48,7 +50,7 @@ login: stf
 password: stf
 
 
-check you can manage the devices
+check you can manage the devices with stf ui
 
 
 droydrunner
@@ -57,7 +59,7 @@ in a browser open http://${NGINX_HOST}/sessions
 you should get a simple text: list sessions
 
 
-run your droydrinner tests
+run your droydrunner tests
 
 
 
