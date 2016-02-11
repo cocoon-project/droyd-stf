@@ -29,5 +29,5 @@ nginx:
     - ./nginx/conf/nginx.conf:/opt/openresty/nginx/nginx.conf
     #- ./nginx/lualib:/opt/openresty/nginx/lualib
   ports:
-    - "80:8080"
+    - "80:80"
   #command: nginx -g 'daemon off;'
