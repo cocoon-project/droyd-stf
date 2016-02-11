@@ -24,10 +24,10 @@ nginx:
   image: cocoon/openresty
   links:
    - stf
-  volumes: []
+  volumes: 
     #- ./nginx/html:/usr/share/nginx/html
-    #- ./nginx/nginx.conf:/opt/openresty/nginx/conf
+    - ./nginx/conf/nginx.conf:/opt/openresty/nginx/nginx.conf
     #- ./nginx/lualib:/opt/openresty/nginx/lualib
   ports:
-    - "8080:80"
+    - "80:8080"
   #command: nginx -g 'daemon off;'

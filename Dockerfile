@@ -16,6 +16,11 @@ RUN sudo apt-get update && sudo apt-get install -y gettext
 #
 RUN sudo apt-get update && sudo apt-get install -y android-tools-adb android-tools-fastboot
 
+# Set up insecure default key
+RUN mkdir -m 0750 /.android
+ADD files/certs/insecure_shared_adbkey /.android/adbkey
+ADD files/certs/insecure_shared_adbkey.pub /.android/adbkey.pub
+
 
 
 #
