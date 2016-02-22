@@ -1,5 +1,5 @@
 rethinkdb: rethinkdb --no-update-check --bind all 
 #redis: redis-server
-stf: stf local --public-ip ${NGINX_HOST}
+stf: sleep 2; stf local --public-ip ${NGINX_HOST}
 droydserver: droydserve
 
