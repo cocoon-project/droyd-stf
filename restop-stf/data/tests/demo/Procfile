@@ -1,0 +1,5 @@
+#
+#   phonehub server procfile
+#
+#redis: redis-server
+web: python test_phone_server.py

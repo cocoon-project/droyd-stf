@@ -1,0 +1,233 @@
+# robot framework test
+
+*** Settings ***
+Documentation     demo for droydhub
+    ...
+    ...  export RF_HUB_URL=http://hub.com:5000
+    ...  pybot -L trace -P ../ rf_native_hub.txt
+    ...
+
+Library 	droydserver.robot_plugin.Pilot
+Library     Collections
+
+*** Variables ***
+${Alice}=    e7f54be6
+${Bob}=    388897e5
+
+${Alice_number}=     0684820364
+${Bob_number}=       0640412593
+
+*** Keywords ***
+
+
+#
+#  adb macros
+#
+Macro adb devices
+   [Documentation]     unlock screen if necessary
+
+    ${devices}  Adb devices
+    Log List    ${devices}
+    return from Keyword     ${devices}
+
+
+#
+#   general device macros
+#
+
+Macro Unlock Screen
+    [arguments]     ${user}
+    [Documentation]     unlock screen if necessary
+
+    Turn On Screen  ${user}
+    # get current screen
+    ${device_info}  Get Device Info     ${user}
+    #Log Dictionary  ${device_info}
+    ${package_name}     Get From Dictionary     ${device_info}  currentPackageName
+    Log     ${package_name}
+    # return if not keyguard screen
+    Return From Keyword If    '${package_name}' != 'com.android.keyguard'
+    # swipe to unlock device
+    Swipe By Coordinates   ${user}     sx=270     sy=1440    ex=800     ey=1000    steps=50
+
+
+Macro Home
+    [arguments]     ${user}
+    [Documentation]     return to home screen
+    Macro Unlock Screen     ${user}
+    Press Home   ${user}
+    Press Home   ${user}
+
+Macro Quick Launch Phone
+    [arguments]     ${user}
+    [Documentation]     launch phone application from home screen with hot key
+    click   ${user}  className=android.widget.TextView     packageName=com.sec.android.app.launcher    text=Phone
+
+
+Macro Settings airplane on
+    [arguments]     ${user}
+    [Documentation]     put device in airplane mode (if necessary)
+    # goto quick settings
+    Open Quick Settings     ${user}
+    # click on airplane logo
+    click   ${user}     packageName=com.android.systemui  className=android.widget.LinearLayout  index=15
+    # wait for popup with text: Turn On Airplane mode
+    ${pop_up}   Wait for Exists     ${user}    timeout=1   text=Turn on Airplane mode  packageName=com.android.systemui  className=android.widget.TextView  resourceId=android:id/alertTitle
+    # click on OK
+    run keyword if  ${pop_up} == True  click   ${user}  packageName=com.android.systemui  className=android.widget.Button  text=OK
+    # click on CANCEL
+    run keyword if  ${pop_up} == False  click   ${user}  packageName=com.android.systemui  className=android.widget.Button  text=Cancel
+
+
+
+Macro Settings airplane off
+    [arguments]     ${user}
+    [Documentation]     switch off airplane mode (if necessary)
+    # goto quick settings
+    Open Quick Settings     ${user}
+    # click on airplane logo
+    click   ${user}     packageName=com.android.systemui  className=android.widget.LinearLayout  index=15
+    # wait for popup with text: Airplane mode
+    ${pop_up}   Wait for Exists     ${user}    timeout=1   text=Airplane mode  packageName=com.android.systemui  className=android.widget.TextView  resourceId=android:id/alertTitle
+    # click on OK
+    run keyword if  ${pop_up} == True  click   ${user}  packageName=com.android.systemui  className=android.widget.Button  text=OK
+    # click on cancel (already off)
+    run keyword if  ${pop_up} == False  click   ${user}  packageName=com.android.systemui  className=android.widget.Button  text=Cancel
+
+
+
+#
+#  telephony macros
+#
+
+
+Macro Phone Keypad
+    [documentation]    select keypad in phone application
+    [arguments]     ${user}
+    #return self.device(className='android.app.ActionBar$Tab',packageName=self.package_name,index=index).click()
+    click   ${user}     className=android.app.ActionBar$Tab   packageName=com.android.contacts   index=0
+
+Macro Phone dial number
+    [Documentation]     dial number when in phone.keypad
+    [arguments]     ${user}     ${number}
+
+    # long click on text zone
+    long click   ${user}    resourceId=com.android.contacts:id/digits
+    #  click delete button
+    click   ${user}    resourceId=com.android.contacts:id/deleteButton
+    # set text with number
+    set text    ${user}   input_text=${number}   resourceId=com.android.contacts:id/digits
+    # press dial button
+    click   ${user}    resourceId=com.android.contacts:id/dialButton
+
+
+# Macro Phone is incoming call
+
+#     [Documentation]     is incoming pop up present
+#     [arguments]     ${user}
+
+#     #exists   ${user}   resourceId=com.android.incallui:id/
+
+
+Macro Phone wait incoming call
+
+    [Documentation]     wait for an incoming call
+    [arguments]     ${user}     ${timeout}=10000
+
+    ${call}     Wait For Exists   ${user}   timeout=${timeout}  resourceId=com.android.incallui:id/popup_call_state
+    Return From Keyword If    ${call} == True
+    Fail    msg=no incoming call received
+
+Macro Phone answer call
+
+    [Documentation]     click answer button in callui popup
+    [arguments]     ${user}
+
+    click   ${user}     resourceId=com.android.incallui:id/popup_call_answer
+
+Macro Phone reject call
+
+    [Documentation]     click CANCEL button in callui popup
+    [arguments]     ${user}
+
+     click   ${user}     resourceId=com.android.incallui:id/popup_call_reject
+
+Macro Phone hangup call
+
+    [Documentation]     click Hangup in incallui
+    [arguments]     ${user}
+
+     click   ${user}     resourceId=com.android.incallui:id/endButton
+
+
+#
+#   units
+#
+
+Unit airplane
+    [arguments]     ${userA}    ${userB}
+
+    Open Session     ${userA}    ${userB}
+
+
+    Macro Settings airplane on  ${userA}
+    Builtin.sleep   1
+    Macro Settings airplane off  ${userA}
+
+    Macro Settings airplane off  ${userB}
+    Builtin.sleep   1
+    # check that airplane off works if already off
+    Macro Settings airplane off  ${userB}
+
+
+
+    Close Session
+
+
+Unit Simple Call
+    [Documentation]     A call B,B answers,A hangup
+    [arguments]     ${userA}    ${userB}    ${number}   ${sleep}=2
+
+    Open Session    ${userA}    ${userB}
+
+    Macro Home  ${userA}
+    Macro Quick Launch Phone    ${userA}
+    Macro Phone Keypad  ${userA}
+    Macro Phone Dial Number     ${userA}    ${number}
+
+
+
+    Macro Home  ${userB}
+    Macro Quick Launch Phone    ${userB}
+    Macro Phone wait incoming call  ${userB}
+    Macro Phone Answer Call     ${userB}
+
+    Builtin.Sleep   ${sleep}
+
+    Macro Phone hangup call     ${userA}
+
+    Press Home  ${userA}
+    Press Home  ${userB}
+
+    [teardown]  Close Session
+
+
+*** Test Cases ***
+
+
+connected devices
+    [Documentation]     list connected devices
+    macro adb devices
+
+
+airplane mode
+    [Documentation]     play with airplane mode
+    Unit airplane   ${Alice}    ${Bob}
+
+simple_call
+    [Documentation]     userA call userB , userB answers call , sleep 2 , userA hangups
+    Unit Simple Call    ${Alice}    ${Bob}  ${Bob_number}
+
+
+
+

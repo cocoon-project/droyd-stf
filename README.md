@@ -15,7 +15,7 @@ install
 
     git clone https://github.com/cocoon-project/droyd-stf.git
 
-    cd droyd-stf
+    cd droyd-stf/droyd-stf
 
 
 edit the file docker-compose.yml
@@ -32,7 +32,7 @@ connect your android devices
     docker-compose up
 
 
-when run for the first time, docker will load 2 images from dockerhub, be patient.
+when run for the first time, docker will load some images from dockerhub, be patient.
 
 watch your devices to answer the authorization request for this machine
 
@@ -44,7 +44,7 @@ test
 
 stf
 ---
-in a brower open http://${NGINX_HOST}
+in a browser open http://${NGINX_HOST}
 
 * login: stf
 * password: stf@openstf.io

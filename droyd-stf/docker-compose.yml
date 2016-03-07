@@ -2,7 +2,8 @@
 data:
   build: ./data
 stf:
-  image: cocoon/droyd-stf
+  #image: cocoon/droyd-stf
+  build: stf
   ports:
     - "7100:7100"
     - "7110:7110"
@@ -20,9 +21,13 @@ stf:
   environment:
     - NGINX_HOST=192.168.99.100
     - PYTHONIOENCODING="utf-8"
-
   command: '/bin/bash -c "envsubst < /data/templates/Procfile > /data/Procfile; honcho start"'
 
+rethinkdb:
+  image: rethinkdb
+  net: container:stf
+  #rethinkdb --no-update-check --bind all 
+  command: ["rethinkdb", "--bind", "all" ,"--no-update-check" ]
 nginx:
   #image: cocoon/openresty
   image: ficusio/openresty

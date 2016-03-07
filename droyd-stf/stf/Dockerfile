@@ -22,17 +22,23 @@ ADD files/certs/insecure_shared_adbkey /.android/adbkey
 ADD files/certs/insecure_shared_adbkey.pub /.android/adbkey.pub
 
 
+
 #
 #   install rethinkdb  ( ref: https://www.rethinkdb.com/docs/install/ubuntu/)
 #
+
 #RUN . /etc/lsb-release && \
 #    echo "deb http://download.rethinkdb.com/apt $DISTRIB_CODENAME main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list &&\
 #    wget -qO- https://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add - && \
 #    sudo apt-get update && sudo apt-get install -y rethinkdb
-#
-#   process cluster webui
-EXPOSE 28015 29015 8080
 
+#   process cluster webui
+#EXPOSE 28015 29015 8080
+
+#
+# install redis
+#
+#RUN sudo apt-get install -y redis-server
 
 #
 #  install honcho

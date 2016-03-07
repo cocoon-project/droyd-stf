@@ -1,0 +1,257 @@
+{
+"common": {
+    "devices": {
+        "default": {
+            "--norefersub":"",
+            "--no-vad":"",
+            "--dis-codec": "PCMU,speex,GSM,G722,iLBC",
+            "--stdout-refresh": 4
+        },
+        "ims": {
+            "--no-tcp": "",
+            "--auto-update-nat": 0,
+            "--disable-via-rewrite": "",
+            "--disable-rport": "",
+            "--disable-stun": "",
+            "--add-codec": "PCMA",
+            "--norefersub": ""
+        }
+    }
+
+ } ,
+"demo_qualif": {
+   "FeatureAccessCode": {"+ACR": ["*77", "Anonymous Call Rejection activation"],
+                   "+BAE164D": ["*14",
+                                "Broadworks Anywhere E.164 Dialing"],
+                   "+CB": ["*15", "CAll Bridge"],
+                   "+CFA": ["*2011", "CFA Activation Call Forward Always"],
+                   "+CFA_VM": ["*21*",
+                               "CFA-VM Activation , CAll Forward Always to Voice Mail Activation"],
+                   "+CFB": ["*2021",
+                            "CFB Activation , CallForward Busy Activation"],
+                   "+CFB_VM": ["*22*",
+                               "CFB-VM  Activation , CallForward Busy to Voice Mail Activation"],
+                   "+CFNA": ["*2031",
+                             "CFNA Activation , Call Forward No Answer Activation"],
+                   "+CFNA_VM": ["*23*",
+                                "CFNA-VM Activation , Call Forward No Answer to Voice Mail Activation"],
+                   "+CFNR": ["*2041",
+                             "CFNR Activation,    Call Forward Not Reachable Activation"],
+                   "+CFS": ["*270*",
+                            "Call Forwarding Selective Activation"],
+                   "+CLIR": ["*3651",
+                             "Call Line ID Delivery Blocking , per call, or Call Line Identity Restriction"],
+                   "+CP": ["*62", "Call Park"],
+                   "+CPR": ["*88", "Call Park Retrieve"],
+                   "+CPup": ["*41*", "Call Pickup"],
+                   "+CR": ["*31", "Call Return activation"],
+                   "+CWP": ["*43*", "Call Waiting Persistent Activation"],
+                   "+DCPup": ["*41", "Directed Call Pickup"],
+                   "+DND": ["*78", "Do Not Disturb Activation"],
+                   "+DVMT": ["*55", "Direct Voice Mail Transfer"],
+                   "+ExACP": ["#63", "Executive-Assistant Call Push"],
+                   "+ExAIC": ["#64", "Executive-Assistant Initiate Call"],
+                   "+ExAOin": ["#65", "Executive-Assistant Opt-in"],
+                   "+ExAOout": ["#66", "Executive-Assistant Opt-out"],
+                   "+LC": ["*12", "Location Control activation"],
+                   "+LNR": ["*33", "Last Number Redial"],
+                   "+SD100": ["*75", "Speed Dial 100"],
+                   "+SD8": ["*74", "Speed Dial 8"],
+                   "-ACR": ["*87",
+                            "Anonymous Call Rejection deactivation"],
+                   "-CFA": ["*2010", "Call Forward Always Deactivation"],
+                   "-CFA_VM": ["*213*",
+                               "CFA-VM DeActivation , CAll Forward Always to Voice Mail DeActivation"],
+                   "-CFB": ["*2020",
+                            "CFB DeActivation , CallForward Busy DeActivation"],
+                   "-CFB_VM": ["*223*",
+                               "CFB-VM  DeActivation , CallForward Busy to Voice Mail DeActivation"],
+                   "-CFNA": ["*2030",
+                             "CFNA DeActivation , Call Forward No Answer DeActivation"],
+                   "-CFNA_VM": ["*233*",
+                                "CFNA-VM DeActivation , Call Forward No Answer to Voice Mail DeActivation"],
+                   "-CFNR": ["*2040",
+                             "CFNR DeActivation,    Call Forward Not Reachable DeActivation"],
+                   "-CFS": ["*271*",
+                            "Call Forwarding Selective Activation"],
+                   "-CLIR": ["#3651",
+                             "Call Line ID Delivery overiding , per call when permanent Line Identity Restriction"],
+                   "-CR": ["*311*",
+                           "Call Return deactivation (Number Deletion)"],
+                   "-CWP": ["*431*",
+                            "Call Waiting Persistent Deactivation"],
+                   "-DND": ["*79", "Do Not Disturb DeActivation"],
+                   "-LC": ["*13", "Location Control deactivation"],
+                   "?ACR": ["*52*",
+                            "Anonymous Call Rejection Interrogation"],
+                   "?CFA": ["*2012", "Call Forward Always Interrogation"],
+                   "?CFB": ["*2022",
+                            "CFB Interrogation , CallForward Busy Interrogation"],
+                   "?CFNA": ["*2032",
+                             "CFNA Interrogation , Call Forward No Answer Interrogation"],
+                   "?CFNR": ["*2042",
+                             "CFNR Interrogation,    Call Forward Not Reachable Interrogation"],
+                   "?CWP": ["*53*", "Call Waiting Interrogation"]
+    },
+
+
+
+ "destinations": {"Alice_SD_2": 2,
+                  "Alice_SD_3": 3,
+                  "Alice_SD_4": 4,
+                  "Alice_noSDA_SD_2": 2,
+                  "Alice_noSDA_SD_3": 3,
+                  "Alice_noSDA_SD_4": 4,
+                  "wrong_Extension": "00000",
+                  "wrong_FeatureAccessCode_1": "*100",
+                  "wrong_FeatureAccessCode_2": "*72",
+                  "wrong_PrivateNumber": "112527",
+                  "wrong_Sid_E1S1": "112527",
+                  "wrong_Sid_E1S2": "122518",
+                  "oms_service": "sip:+33146511102@192.168.1.50;play=http_audio.example.net_song.wav"
+
+                },
+ "enterprises": {"enterprise_1": {"CID": 0,
+                                  "name": "LPRISMEVQ1",
+                                  "sites": {"site_1": {"CallingLineIDGroupName": "CLID_2361EVQ1",
+                                                       "CallingLineIDGroupNumber": "0146502509",
+                                                       "LocationDialingCode": "11",
+                                                       "name": "2361EVQ1",
+                                                       "users": {
+                                                           "Alice": {
+                                                               "username": "+33146511101",
+                                                               "id": "+33146511101"
+                                                           },
+                                                           "Alice_noSDA": {
+                                                               "number": "6310",
+                                                               "username": "P2361EVQ1_6310"
+                                                           },
+                                                           "Bob": {
+                                                               "username": "+33146511102@bluebox"
+                                                           },
+                                                           "Bob_Short_Target": {
+                                                               "username": "+33146502515"
+                                                           },
+                                                           "Bob_noSDA": {
+                                                               "number": "6311",
+                                                               "username": "P2361EVQ1_6311"
+                                                           },
+                                                           "Bob_noSDA_Short": {
+                                                               "number": "6312",
+                                                               "target": "Bob_Short_Target",
+                                                               "username": "P2361EVQ1_6312"
+                                                           },
+                                                           "Charlie": {
+                                                               "username": "+33146511103"
+                                                           },
+                                                           "Dave": {
+                                                               "username": "1003"
+                                                           },
+                                                           "Erin": {
+                                                               "username": "1004"
+                                                           },
+
+
+                                                           "Aline": {
+                                                               "username": "+33146511101",
+                                                               "display": "Aline Original"
+                                                           },
+                                                           "Bruce": {
+                                                               "username": "+33146511102"
+                                                           },
+                                                           "Charlene": {
+                                                               "username": "+33146511103"
+                                                           },
+                                                           "David": {
+                                                               "username": "+33146511104"
+                                                           },
+
+
+                                                           "Fred": {
+                                                               "username": "+33146511105@local"
+                                                           },
+                                                           "Fanny": {
+                                                               "username": "+33146511106@local"
+                                                           }
+
+
+
+
+
+
+                                                       }
+
+
+                                  },
+                                            "site_2": {"CallingLineIDGroupName": "CLID_2361EVQ2",
+                                                       "CallingLineIDGroupNumber": "0146502519",
+                                                       "LocationDialingCode": "12",
+                                                       "name": "2361EVQ2",
+                                                       "users": {"Alice_InterSite": {"username": "1005"},
+                                                                 "Alice_InterSite_noSDA": {"number": "6321",
+                                                                                           "username": "P2361EVQ2_6321"},
+                                                                 "Bob_InterSite": {"username": "1006"},
+                                                                 "Bob_InterSite_noSDA": {"number": "6320",
+                                                                                         "username": "P2361EVQ2_6320"},
+                                                                 "Charlie_InterSite": {"username": "1007"},
+                                                                 "Dave_InterSite": {"username": "1008"},
+
+                                                                 "Aline_InterSite":    {"username": "+33146511201"},
+                                                                 "Bruce_InterSite":    {"username": "+33146511202"},
+                                                                 "Charlene_InterSite": {"username": "+33146511203"},
+                                                                 "David_InterSite":    {"username": "+33146511204"}
+
+                                                       }
+
+
+                                            },
+                                            "virtual": {"name": "virtual",
+                                                        "users": {"Bob_Abbreviated": {"target": "Bob_Abbreviated_Target",
+                                                                                      "username": "3212",
+                                                                                      "virtual": "true"}}}}},
+                 "enterprise_2": {"CID": 0,
+                                  "name": "LPRISMEVQ2",
+                                  "sites": {"site_1": {"CallingLineIDGroupName": "CLID_2361EVQ3",
+                                                       "CallingLineIDGroupNumber": "0146502530",
+                                                       "LocationDialingCode": "21",
+                                                       "name": "2361EVQ3",
+                                                       "users": {"Alice_InterEnterprise": {"username": "1009"},
+                                                                 "Alice_InterEnterprise_noSDA": {"username": "P2361EVQ3_6330"},
+                                                                 "Bob_Abbreviated_Target": {"username": "+33146502533"},
+                                                                 "Bob_InterEnterprise": {"username": "1010"},
+                                                                 "Bob_InterEnterprise_noSDA": {"username": "P2361EVQ3_6331"},
+
+
+                                                                  "Aline_InterEnterprise": {"username": "+33146522101"},
+                                                                  "Bruce_InterEnterprise": {"username": "+33146522102"}
+
+                                                                }
+                                                       }
+                                            }
+                                }
+    },
+    "mobiles": {
+
+      "Mobby": {
+        "id": "+33784109762",
+        "username": "0915f9ece8942b04"
+      },
+      "Marylin": {
+        "id": "+33784109764",
+        "username": "0915f9e0b3900c05"
+      }
+
+    },
+
+    "main": {"ApplicationServerUrl": "http://bluebox/bluebox",
+          "domain": "bluebox",
+          "password": "1234",
+          "platform_name": "demo",
+          "platform_version": "demo_qualif",
+          "proxy": "127.0.0.1:5060",
+          "escape_prefix": "",
+          "escape_prefix_explicit": "0",
+          "device_profile": "default"
+
+    }}
+}

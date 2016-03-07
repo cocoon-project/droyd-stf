@@ -1,9 +1,10 @@
-
 data:
   build: ./data
 stf:
-  image: cocoon/droyd-stf
+  build: ./stf
   ports:
+    - "5000:5000"
+    - "8080:8080" 
     - "7100:7100"
     - "7110:7110"
     - "7400:7400"
@@ -14,24 +15,23 @@ stf:
     - "7405:7405"
     - "7406:7406"
     - "7407:7407"
-    - "5000:5000"
-    - "8080:8080" 
   privileged: true
   environment:
     - NGINX_HOST=192.168.99.100
     - PYTHONIOENCODING="utf-8"
+    - PYTHONPATH=/usr/local/lib/phonehub
+  volumes_from:
+    - data 
 
   command: '/bin/bash -c "envsubst < /data/templates/Procfile > /data/Procfile; honcho start"'
 
 nginx:
-  #image: cocoon/openresty
-  image: ficusio/openresty
+  build: ./nginx
   links:
    - stf
-  volumes: 
-    #- ./nginx/html:/opt/openresty/nginx/html
-    - ./nginx/conf/nginx.conf:/opt/openresty/nginx/conf/nginx.conf
-    - ./nginx/lualib:/opt/openresty/nginx/lualib
+  volumes: []
+    #- ./nginx/html:/usr/share/nginx/html
+    #- ./nginx/conf/nginx.conf:/opt/openresty/nginx/nginx.conf
+    #- ./nginx/lualib:/opt/openresty/nginx/lualib
   ports:
     - "80:80"
-  #command: nginx -g 'daemon off;'

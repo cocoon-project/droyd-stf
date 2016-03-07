@@ -1,0 +1,5 @@
+#rethinkdb: rethinkdb --no-update-check --bind all 
+#redis: redis-server
+stf: sleep 2; stf local --public-ip 192.168.99.100
+droydserver: droydserve
+
