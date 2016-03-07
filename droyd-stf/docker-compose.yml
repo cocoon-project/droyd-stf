@@ -18,6 +18,8 @@ stf:
     - "5000:5000"
     - "8080:8080" 
   privileged: true
+  #volumes: 
+  #  - /dev/bus/usb:/dev/bus/usb
   environment:
     - NGINX_HOST=192.168.99.100
     - PYTHONIOENCODING="utf-8"
